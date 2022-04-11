@@ -36,11 +36,19 @@ variable "public_ip_sku" {
 variable "gateway_type" {
   description = "The type of the Virtual Network Gateway. Valid options are Vpn or ExpressRoute"
   default     = "Vpn"
+  validation {
+    condition = contains([ "Vpn", "ExpressRoute" ], var.gateway_type)
+    error_message = "Gateway type must be one of: Vpn or ExpressRoute."
+  }
 }
 
 variable "vpn_type" {
   description = "The routing type of the Virtual Network Gateway. Valid options are RouteBased or PolicyBased. Defaults to RouteBased"
   default     = "RouteBased"
+  validation {
+    condition = contains([ "RouteBased", "PolicyBased" ], var.vpn_type)
+    error_message = "Vpn type must be one of: RouteBased or PolicyBased."
+  }
 }
 
 variable "vpn_gw_sku" {
